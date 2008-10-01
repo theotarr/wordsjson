@@ -35,7 +35,7 @@ with LIST_PACKAGE; use LIST_PACKAGE;
         end if;
         
         if (DE.PART.POFS = PREP)   then
-          return TRIM(  "<hdwd xml:lang=""la"">"
+          return TRIM(  "<hdwd xml:lang=""lat"">"
                       & DE.STEMS(1))
                       & "</hdwd>"
                       & PART_OF_SPEECH_TO_XML(DE.PART.POFS)
@@ -52,7 +52,7 @@ with LIST_PACKAGE; use LIST_PACKAGE;
             ((DE.PART.POFS = V)  and then (DE.PART.V.CON = (9, 8))) or  
             ((DE.PART.POFS = V)  and then (DE.PART.V.CON = (9, 9))))  
              then
-          return TRIM(  "<hdwd xml:lang=""la"">"
+          return TRIM(  "<hdwd xml:lang=""lat"">"
                       & DE.STEMS(1))
                       & "</hdwd>"
                       & PART_OF_SPEECH_TO_XML(DE.PART.POFS);
@@ -597,7 +597,7 @@ with LIST_PACKAGE; use LIST_PACKAGE;
         
                 --  Now clean up and output
         --  Several flags have been set which modify OX's
-        ADD_UP("<hdwd xml:lang=""la"">");
+        ADD_UP("<hdwd xml:lang=""lat"">");
         if OX(1)(1..3) = "zzz"  then
           ADD_UP(" - ");
         elsif OX(1) /= NULL_OX  then
