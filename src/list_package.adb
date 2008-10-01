@@ -676,7 +676,7 @@
                end if;
              end if;
 
-             TEXT_IO.PUT(OUTPUT, "<term>");
+             TEXT_IO.PUT(OUTPUT, "<term xml:lang=""la"">");
              TEXT_IO.PUT(OUTPUT, TAGGED_STRING("stem", SR.STEM));
              TEXT_IO.PUT(OUTPUT, TAGGED_STRING("suff", SR.IR.ENDING.SUF));
              TEXT_IO.PUT(OUTPUT, "</term>");
@@ -1466,6 +1466,8 @@ if PA_LAST = 0   then
         OSRA := NULL_SRA;
         if DMA(1) /= NULL_DICTIONARY_MNPC_RECORD then
           TEXT_IO.PUT_LINE(OUTPUT, "<word>");
+          TEXT_IO.PUT_LINE(OUTPUT,
+                           TAGGED_STRING("form", "xml:lang", "la", RAW_WORD));
         end if;
         OUTPUT_LOOP:
         while  DMA(J) /= NULL_DICTIONARY_MNPC_RECORD  loop
