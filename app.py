@@ -5,7 +5,7 @@ import xmltodict
 app = Flask(__name__)
 @app.route('/api/v1/analysis/<string:word>', methods=['GET'])
 def analyze(word):
-    out = os.popen("cd /code/wordjson/dist/bin && ./wordsxml " + word)
+    out = os.popen("cd /code/wordsjson/dist/bin && ./wordsxml " + word)
     return xmltodict.parse(out.read())
 
 @app.route('/test')
