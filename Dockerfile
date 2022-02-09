@@ -11,7 +11,7 @@ RUN apt update && apt install -y gnat gprbuild build-essential \
                                 python3-pip git && \
                                 apt-get clean -y && \
                                 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN git clone --depth 1 https://github.com/theotarr/wordsjson.git && \
+RUN git clone -b create_docker_version --depth 1 https://github.com/theotarr/wordsjson.git && \
     cd wordsjson/src && \
     gnatmake -O3 wordsxml && \
     gnatmake -O3 makedict && \
