@@ -1,6 +1,6 @@
 FROM ubuntu
 
-LABEL maintainer="theodore@latindictionary.io"
+LABEL maintainer="theo@latindictionary.io"
 LABEL version="0.1"
 LABEL description="This is custom Docker Image for the JSON wrapper for words"
 

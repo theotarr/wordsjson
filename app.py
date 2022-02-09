@@ -1,5 +1,5 @@
 import os
-from flask import Flask, make_response
+from flask import Flask
 import xmltodict
 
 app = Flask(__name__)
