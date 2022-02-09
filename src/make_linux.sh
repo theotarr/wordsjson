@@ -1,12 +1,21 @@
-#!/bin/sh
-# TODO - turn this into a fully functional make file
+#! /bin/bash
 
-gnatmake wordsxml -O3 -o ../dist/Linux_x86-gcc4/wordsxml -bargs -static
-strip ../dist/Linux_x86-gcc4/wordsxml 
-gnatmake makedict -O3 -o ../tools/Linux_x86-gcc4/makedict -bargs -static
-gnatmake makestem -O3 ../tools/Linux_x86-gcc4/makestem -bargs -static
-gnatmake makeewds -O3 -o ../tools/Linux_x86-gcc4/makeewds -bargs -static
-gnatmake makeefil -O3 -o ../tools/Linux_x86-gcc4/makeefil -bargs -static
-gnatmake makeinfl -O3 -o ../tools/Linux_x86-gcc4/makeinfl -bargs -static
-strip ../tools/Linux_x86-gcc4/make*
+apt install gnat
+apt install gprbuild
+apt install -y build-essential libssl-dev libffi-dev python3-dev
+apt install -y python3-pip
+apt install -y python3-venv
 
+
+# TODO - cd into the right directory
+
+gnatmake -O3 wordsxml
+gnatmake makedict
+gnatmake makestem
+gnatmake makeefil
+gnatmake makeinfl
+
+echo G | ./makedict
+echo G | ./makestem
+echo G | ./makeefil
+echo G | ./makeinfl
