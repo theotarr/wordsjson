@@ -676,7 +676,7 @@
                end if;
              end if;
 
-             TEXT_IO.PUT(OUTPUT, "<term xml:lang=""lat"">");
+             TEXT_IO.PUT(OUTPUT, "<term>");
              TEXT_IO.PUT(OUTPUT, TAGGED_STRING("stem", SR.STEM));
              TEXT_IO.PUT(OUTPUT, TAGGED_STRING("suff", SR.IR.ENDING.SUF));
              TEXT_IO.PUT(OUTPUT, "</term>");
