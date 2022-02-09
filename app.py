@@ -1,31 +1,17 @@
 import os
-from flask import Flask, make_response
+from flask import Flask
 import xmltodict
 
-
 app = Flask(__name__)
-
-
 @app.route('/api/v1/analysis/<string:word>', methods=['GET'])
 def analyze(word):
-    return analyze_word(word)
+    print(word)
+    out = os.popen("cd /code/wordsjson/dist/bin && ./wordsxml " + word)
+    return xmltodict.parse(out.read())
 
-
-def analyze_word(word):
-    # get the output of the command
-    out = os.popen("cd wordsxml/dist/WINNT_x86-gcc3 && wordsxml.exe " + word)
-    out = xml_to_json(out.read())
-
-    return out
-
-def xml_to_json(xml):
-    # convert xml to json
-    json = xmltodict.parse(xml)
-    return json
-
-    
-
-    
+@app.route('/test')
+def test():
+    return("Hello World")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
