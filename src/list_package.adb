@@ -41,22 +41,23 @@
                                  ATTR_VALUE : STRING;
                                  S : STRING) return STRING is
       begin
-        if S'LENGTH /= 0 then
-          if ATTR_NAME'LENGTH /= 0 and ATTR_VALUE'LENGTH /= 0 then
-            return "<" & TAG & " " &
-                   ATTR_NAME & "=""" & ATTR_VALUE & """>" &
-                   S & "</" & TAG & ">";
-          else
-            return "<" & TAG & ">" & S & "</" & TAG & ">";
-          end if;
-        else
-          if ATTR_NAME'LENGTH /= 0 and ATTR_VALUE'LENGTH /= 0 then
-            return "<" & TAG & " " &
-                   ATTR_NAME & "=""" & ATTR_VALUE & """/>";
-          else
-            return "";
-          end if;
-        end if;
+        -- if S'LENGTH /= 0 then
+        --   if ATTR_NAME'LENGTH /= 0 and ATTR_VALUE'LENGTH /= 0 then
+        --     return "<" & TAG & " " &
+        --            ATTR_NAME & "=""" & ATTR_VALUE & """>" &
+        --            S & "</" & TAG & ">";
+        --   else
+        --     return "<" & TAG & ">" & S & "</" & TAG & ">";q
+        --   end if;
+        -- else
+        --   if ATTR_NAME'LENGTH /= 0 and ATTR_VALUE'LENGTH /= 0 then
+        --     return "<" & TAG & " " &
+        --            ATTR_NAME & "=""" & ATTR_VALUE & """/>";
+        --   else
+        --     return "";
+        --   end if;
+        -- end if;
+        return "<" & TAG & ">" & S & "</" & TAG & ">";
       end TAGGED_STRING_RAW;
 
       function TAGGED_STRING(TAG : STRING; S : STRING) return STRING is
