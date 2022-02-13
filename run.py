@@ -1,6 +1,9 @@
 from app import create_app
 
-if __name__ == "__main__":
+def run_words():
     app = create_app()
-    app.run()
+    app.run
+    
+if __name__ == "__main__":
+    run_words()
     
