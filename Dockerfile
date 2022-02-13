@@ -12,7 +12,7 @@ RUN apt update && apt install -y gnat gprbuild build-essential \
                                 apt-get clean -y && \
                                 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN git clone -b create_docker_version --depth 1 https://github.com/theotarr/wordsjson.git && \
-    cd wordsjson/src && \
+    cd wordsjson/app/src && \
     gnatmake -O3 wordsxml && \
     gnatmake -O3 makedict && \
     gnatmake -O3 makestem && \
@@ -32,6 +32,7 @@ RUN git clone -b create_docker_version --depth 1 https://github.com/theotarr/wor
     mv INFLECTS.SEC ../dist/bin && \
     mv STEMFILE.GEN ../dist/bin && \
     mv UNIQUES.LAT ../dist/bin && \
+    cd .. && \
     cd .. && \
     pip install --no-cache-dir -r requirements.txt
 
