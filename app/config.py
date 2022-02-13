@@ -1,7 +1,7 @@
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv()
+#load_dotenv()
 
 class Config:
     DEVELOPMENT = False
@@ -9,7 +9,7 @@ class Config:
     CSRF_ENABLED = True
 
     # Set up the App SECRET_KEY
-    SECRET_KEY = os.getenv('SECRET_KEY')
+    SECRET_KEY = "bigsecret" #os.getenv('SECRET_KEY')
 
     # Set up the database
     # SQLALCHEMY_DATABASE_URI = os.getenv('DB_URI')
