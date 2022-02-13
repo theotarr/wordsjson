@@ -28,5 +28,5 @@ RUN git clone --depth 1 https://github.com/theotarr/wordsjson.git && \
     pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8080
-CMD cd wordsjson/app/src && ./wordsxml canis && cd ../.. && gunicorn --workers 4 --bind 0.0.0.0:8080 run:app
+CMD cd wordsjson/app/src && ./wordsxml canis && cd ../.. && gunicorn --workers 4 --bind 0.0.0.0:80 run:app
 
