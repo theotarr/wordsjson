@@ -23,6 +23,7 @@ RUN git clone --depth 1 https://github.com/theotarr/wordsjson.git && \
     echo G | ./makestem && \
     ./makeefil && \
     ./makeinfl && \
+    mkdir ../dist && \
     mkdir ../dist/bin && \
     mv wordsxml ../dist/bin && \
     mv ADDONS.LAT ../dist/bin && \
