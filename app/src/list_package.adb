@@ -1415,7 +1415,7 @@ if PA_LAST = 0   then
           if WORDS_MDEV(DO_PEARSE_CODES) then
             TEXT_IO.PUT(OUTPUT, "04 ");
           end if;
-          TEXT_IO.PUT_LINE(TAGGED_STRING("unknown", RAW_WORD));
+          TEXT_IO.PUT_LINE(TAGGED_STRING("word", TAGGED_STRING("unknown", RAW_WORD)));
         end if;
 
         if WORDS_MODE(WRITE_UNKNOWNS_TO_FILE)  then
