@@ -15,7 +15,7 @@ def analyze(word):
         out = os.popen("cd /code/wordsjson/app/src && ./wordsxml " + word)
 
     elif platform.system() == 'Windows':
-        out = os.popen("cd app/dist/WINNT_x86-gcc3 && wordsxml.exe " + word)
+        out = os.popen("cd app/src && wordsxml.exe " + word)
 
     elif platform.system() == 'Darwin':
         out = os.popen("cd app/dist/Darwin && wordsxml " + word)
