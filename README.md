@@ -1,7 +1,75 @@
+<p align="center">
+    <img src="https://www.latindictionary.io/static/assets/img/favicon/mstile-150x150.png" width=200 height=200/>
+</p>
 <h1 align="center">
-    JSON Wrapper For the WORDS Program
+    JSON Wrapper WORDS
 </h1>
 
+### Description
+- a wrapper for the wordsxml program provided by Alpheios
+- converts XML response to a JSON response and standardizes the output
+- Dockerized to allow portability and ease of use
+
+### Example Response
+Query: "puer"
+
+``` json
+{
+  "words": {
+    "word": [
+      {
+        "form": "puer",
+        "entry": [
+          {
+            "infl": [
+              {
+                "term": {
+                  "stem": "puer",
+                  "suff": null
+                },
+                "pofs": "noun",
+                "decl": "2nd",
+                "var": "3rd",
+                "case": "nominative",
+                "num": "singular",
+                "gend": "masculine"
+              },
+              {
+                "term": {
+                  "stem": "puer",
+                  "suff": null
+                },
+                "pofs": "noun",
+                "decl": "2nd",
+                "var": "3rd",
+                "case": "vocative",
+                "num": "singular",
+                "gend": "masculine"
+              }
+            ],
+            "dict": [
+              {
+                "hdwd": "puer, pueri",
+                "pofs": "noun",
+                "decl": "2nd",
+                "gend": "masculine",
+                "age": null,
+                "area": null,
+                "geo": null,
+                "freq": "very frequent",
+                "src": null
+              }
+            ],
+            "mean": [
+              "boy, lad, young man; servant; (male) child; [a puere => from boyhood];"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 ### Taglist
 List of data tags used in a JSON response.
