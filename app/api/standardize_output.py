@@ -14,14 +14,15 @@ def standardize_lists(json):
         if not isinstance(word["entry"], list):
             word["entry"] = [word["entry"]]
 
-        if not isinstance(word["entry"][0]["dict"], list):
-            word["entry"][0]["dict"] = [word["entry"][0]["dict"]]
+        for entry in word["entry"]:
+            if "dict" in entry and not isinstance(entry["dict"], list):
+                entry["dict"] = [entry["dict"]]
 
-        if not isinstance(word["entry"][0]["mean"], list):
-            word["entry"][0]["mean"] = [word["entry"][0]["mean"]]
+            if "mean" in entry and not isinstance(entry["mean"], list):
+                entry["mean"] = [entry["mean"]]
 
-        if not isinstance(word["entry"][0]["infl"], list):
-            word["entry"][0]["infl"] = [word["entry"][0]["infl"]]
+            if "infl" in entry and not isinstance(entry["infl"], list):
+                entry["infl"] = [entry["infl"]]
 
     return json
 
