@@ -1,6 +1,8 @@
 import os
+import json
 import platform
 import xmltodict
+import unidecode
 from flask import Blueprint, Response
 from app.api.standardize_output import standardize_lists
 
@@ -9,21 +11,26 @@ api = Blueprint('api', __name__, url_prefix='/api/v1')
 
 @api.route('/analysis/<string:word>', methods=['GET'])
 def analyze(word):
+    if not word:
+        return "Please provide a word to analyze.", 400
+
+    # strip special characters (ie. accents, long marks, etc.)
+    word = unidecode.unidecode(word)
+
     out = ""
-    
-    if platform.system() == 'Linux':
+    # platform specific intrusions
+    if platform.system() == 'Linux' or platform.system() == 'Darwin':
         out = os.popen("cd /code/wordsjson/app/src && ./wordsxml " + word)
 
     elif platform.system() == 'Windows':
         out = os.popen("cd app/src && wordsxml.exe " + word)
 
-    elif platform.system() == 'Darwin':
-        out = os.popen("cd app/dist/Darwin && wordsxml " + word)
-
     # parse response and return json
-    out = out.read()
-    resp = xmltodict.parse(out, dict_constructor=dict)
+    resp = xmltodict.parse(out.read(), dict_constructor=dict)
     resp = standardize_lists(resp)
     
-    # for some reason "jsonify" doesn't work here and the response has to be converted to a string and the content-type set manually
-    return Response(str(resp), mimetype='application/json')
+    """
+    For some reason Flask's "jsonify" doesn't work here, so the response has 
+    to be converted to a valid JSON string and then converted to a Response object.
+    """
+    return Response(json.dumps(resp), mimetype='application/json'), 200
