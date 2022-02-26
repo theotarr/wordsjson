@@ -1,8 +1,3 @@
---
--- Change log:
---   17-Dec-2007  mgursky      add order to case, part of speech
---                             skip repeated inflected forms
---
    with CONFIG; use CONFIG;
    with STRINGS_PACKAGE; use STRINGS_PACKAGE;
    with LATIN_FILE_NAMES; use LATIN_FILE_NAMES;

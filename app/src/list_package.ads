@@ -19,6 +19,11 @@ package LIST_PACKAGE is
   function NUMERAL_SORT_TO_XML(T : NUMERAL_SORT_TYPE) return STRING;
   function PERSON_TO_XML(T : PERSON_TYPE) return STRING;
   function VERB_KIND_TO_XML(T : VERB_KIND_TYPE) return STRING;
+  function AGE_TO_XML(T : AGE_TYPE) return STRING;
+  function AREA_TO_XML(T : AREA_TYPE) return STRING;
+  function GEO_TO_XML(T : GEO_TYPE) return STRING;
+  function FREQUENCY_TO_XML(T : FREQUENCY_TYPE) return STRING;
+  function SOURCE_TO_XML(T : SOURCE_TYPE) return STRING;
   
   procedure LIST_STEMS(OUTPUT   : TEXT_IO.FILE_TYPE;
                        RAW_WORD : STRING;

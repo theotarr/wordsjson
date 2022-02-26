@@ -9,11 +9,12 @@
   with WORD_PACKAGE; use WORD_PACKAGE;
   with ENGLISH_SUPPORT_PACKAGE; use ENGLISH_SUPPORT_PACKAGE;
   with DICTIONARY_FORM;
+  with LIST_PACKAGE; use LIST_PACKAGE;
     
  procedure SEARCH_ENGLISH(INPUT_ENGLISH_WORD : STRING; POFS : PART_OF_SPEECH_TYPE := X) is
      use EWDS_DIRECT_IO;
      INPUT_WORD : EWORD := LOWER_CASE(HEAD(INPUT_ENGLISH_WORD, EWORD_SIZE));
-     INPUT_POFS : PART_OF_SPEECH_TYPE := POFS; 
+     INPUT_POFS : PART_OF_SPEECH_TYPE := POFS;
        
      OUTPUT_ARRAY : EWDS_ARRAY(1..500) := (others => NULL_EWDS_RECORD);
      NUMBER_OF_HITS : INTEGER := 0;
@@ -89,7 +90,7 @@
      begin
   --TEXT_IO.PUT_LINE("DUMP_OUTPUT");             
       if NUMBER_OF_HITS = 0  then
-         TEXT_IO.PUT_LINE(OUTPUT, "No Match");             
+         TEXT_IO.PUT_LINE(OUTPUT, "<word><unknown>" & INPUT_ENGLISH_WORD & "</unknown></word>");             
        else
 --PUT_LINE("Unsorted EWDS");
 --for I in 1..NUMBER_TO_SHOW  loop
@@ -101,7 +102,7 @@ SORT_OUTPUT_ARRAY;
 --TEXT_IO.PUT_LINE("DUMP_OUTPUT SORTED");             
        
          TRIMMED := FALSE;
-         if WORDS_MODE(TRIM_OUTPUT)  then
+         if WORDS_MODE(TRIM_OUTPUT)  then -- paginates output
            if NUMBER_OF_HITS > ONE_SCREEN  then
              NUMBER_TO_SHOW := ONE_SCREEN;    
              TRIMMED := TRUE;
@@ -109,9 +110,13 @@ SORT_OUTPUT_ARRAY;
              NUMBER_TO_SHOW := NUMBER_OF_HITS;
            end if;
          end if;   
-         
+         TEXT_IO.PUT(OUTPUT, "<words>");
          for I in 1..NUMBER_TO_SHOW  loop
            TEXT_IO.NEW_LINE(OUTPUT);
+           TEXT_IO.PUT(OUTPUT, "<word>");
+           TEXT_IO.PUT(OUTPUT, "<form>" & INPUT_ENGLISH_WORD & "</form>");
+           TEXT_IO.PUT(OUTPUT, "<entry>");
+           TEXT_IO.PUT(OUTPUT, "<dict>");
               
 --         EWDS_RECORD_IO.PUT(OUTPUT_ARRAY(I));
 --         TEXT_IO.NEW_LINE;
@@ -123,29 +128,28 @@ DICT_IO.READ(DICT_FILE(GENERAL), DE, DICT_IO.COUNT(OUTPUT_ARRAY(I).N));
             PUT(OUTPUT, DICTIONARY_FORM(DE));
             TEXT_IO.PUT(OUTPUT, "   ");
             --PART_ENTRY_IO.PUT(OUTPUT, DE.PART);
---TEXT_IO.PUT_LINE("DUMP_OUTPUT PART");             
-            if DE.PART.POFS = N  then
-               TEXT_IO.PUT(OUTPUT, "  ");  DECN_RECORD_IO.PUT(OUTPUT, DE.PART.N.DECL);
-               TEXT_IO.PUT(OUTPUT, "  " & GENDER_TYPE'IMAGE(DE.PART.N.GENDER) & "  ");
-             end if;
-             if (DE.PART.POFS = V)   then
-               TEXT_IO.PUT(OUTPUT, "  ");  DECN_RECORD_IO.PUT(OUTPUT, DE.PART.V.CON);
-             end if;
-             if (DE.PART.POFS = V)  and then  (DE.PART.V.KIND in GEN..PERFDEF)  then
-               TEXT_IO.PUT(OUTPUT, "  " & VERB_KIND_TYPE'IMAGE(DE.PART.V.KIND) & "  ");
-             end if;
+--TEXT_IO.PUT_LINE("DUMP_OUTPUT PART");
+
+-- NOT SURE WHY THIS IS HERE
+--            if DE.PART.POFS = N  then
+--               TEXT_IO.PUT(OUTPUT, "  ");  DECN_RECORD_IO.PUT(OUTPUT, DE.PART.N.DECL);
+--               TEXT_IO.PUT(OUTPUT, "  " & GENDER_TYPE'IMAGE(DE.PART.N.GENDER) & "  ");
+--             end if;
+--             if (DE.PART.POFS = V)   then
+--               TEXT_IO.PUT(OUTPUT, "  ");  DECN_RECORD_IO.PUT(OUTPUT, DE.PART.V.CON);
+--             end if;
+--             if (DE.PART.POFS = V)  and then  (DE.PART.V.KIND in GEN..PERFDEF)  then
+--               TEXT_IO.PUT(OUTPUT, "  " & VERB_KIND_TYPE'IMAGE(DE.PART.V.KIND) & "  ");
+--             end if;
       
  --TEXT_IO.PUT_LINE("DUMP_OUTPUT CODE");             
 
- 
        if WORDS_MDEV(SHOW_DICTIONARY_CODES)    then
-                 TEXT_IO.PUT(OUTPUT, " [");
-                 AGE_TYPE_IO.PUT(OUTPUT, DE.TRAN.AGE);
-                 AREA_TYPE_IO.PUT(OUTPUT, DE.TRAN.AREA);
-                 GEO_TYPE_IO.PUT(OUTPUT, DE.TRAN.GEO);
-                 FREQUENCY_TYPE_IO.PUT(OUTPUT, DE.TRAN.FREQ);
-                 SOURCE_TYPE_IO.PUT(OUTPUT, DE.TRAN.SOURCE);
-                 TEXT_IO.PUT(OUTPUT, "]  ");
+          TEXT_IO.PUT(OUTPUT, AGE_TO_XML(DE.TRAN.AGE));
+          TEXT_IO.PUT(OUTPUT, AREA_TO_XML(DE.TRAN.AREA));
+          TEXT_IO.PUT(OUTPUT, GEO_TO_XML(DE.TRAN.GEO));
+          TEXT_IO.PUT(OUTPUT, FREQUENCY_TO_XML(DE.TRAN.FREQ));
+          TEXT_IO.PUT(OUTPUT, SOURCE_TO_XML(DE.TRAN.SOURCE));
              end if;
                
             if WORDS_MDEV(SHOW_DICTIONARY) then
@@ -161,13 +165,16 @@ DICT_IO.READ(DICT_FILE(GENERAL), DE, DICT_IO.COUNT(OUTPUT_ARRAY(I).N));
                  TEXT_IO.NEW_LINE(OUTPUT);
                  
 --TEXT_IO.PUT_LINE("DUMP_OUTPUT MEAN");      
-       
-           TEXT_IO.PUT(OUTPUT, TRIM(DE.MEAN));
+           TEXT_IO.PUT(OUTPUT, "</dict>");
+           TEXT_IO.PUT(OUTPUT, "<mean>" & TRIM(DE.MEAN) & "</mean>");
+           TEXT_IO.PUT(OUTPUT, "</entry>");
+           TEXT_IO.PUT(OUTPUT, "</word>");
            TEXT_IO.NEW_LINE(OUTPUT);
          
       
                
        end loop;
+       TEXT_IO.PUT(OUTPUT, "</words>");
  --TEXT_IO.PUT_LINE("DUMP_OUTPUT TRIMMED"); 
                
       --if TRIMMED  then
