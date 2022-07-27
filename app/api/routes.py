@@ -9,7 +9,7 @@ from app.api.standardize_output import standardize_lists
 api = Blueprint('api', __name__, url_prefix='/api/v1')
 
 
-@api.route('/ln-to-en/<string:word>', methods=['GET'])
+@api.route('/la-to-en/<string:word>', methods=['GET'])
 def analyze(word):
     if not word:
         return "Please provide a Latin word to analyze.", 400
@@ -36,8 +36,8 @@ def analyze(word):
     return Response(json.dumps(resp), mimetype='application/json'), 200
 
 
-@api.get('/en-to-ln/<string:word>')
-def en_to_ln(word):
+@api.get('/en-to-la/<string:word>')
+def en_to_la(word):
     if not word:
         return "Please provide an English word to analyze.", 400
 
